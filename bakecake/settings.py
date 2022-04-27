@@ -13,6 +13,12 @@ import os
 
 from pathlib import Path
 
+from environs import Env
+
+
+env = Env()
+env.read_env()
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -21,14 +27,18 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = (
-    "django-insecure-5=vd#e_6#bao&qnp#%q^-do$qwd$=7n!ms81dt_2gdwx0+5v@6"
-)
+SECRET_KEY = env("SECRET_KEY", "etirgvonenrfnoerngorenogneongg334g")
+DEBUG = env.bool("DEBUG", True)
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS = ["127.0.0.1", "localhost"]
+ALLOWED_HOSTS = env("ALLOWED_HOSTS", "127.0.0.1 localhost").split()
+# SECRET_KEY = (
+#     "django-insecure-5=vd#e_6#bao&qnp#%q^-do$qwd$=7n!ms81dt_2gdwx0+5v@6"
+# )
+#
+# # SECURITY WARNING: don't run with debug turned on in production!
+# DEBUG = True
+#
+# ALLOWED_HOSTS = ["127.0.0.1", "localhost"]
 
 
 # Application definition
@@ -121,13 +131,13 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
 STATIC_URL = "static/"
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_ROOT = os.path.join(BASE_DIR, "static")
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'bakecakeapp/static/bakecakeapp')
+    os.path.join(BASE_DIR, "bakecakeapp/static/bakecakeapp"),
 ]
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-MEDIA_URL = 'media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+MEDIA_URL = "media/"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
