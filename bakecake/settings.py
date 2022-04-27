@@ -133,6 +133,7 @@ STATIC_URL = "static/"
 STATIC_ROOT = os.path.join(BASE_DIR, "static")
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "bakecakeapp/static/bakecakeapp"),
+    "/opt/bake-cake-site/bakecakeapp/static/bakecakeapp",
 ]
 
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
