@@ -13,8 +13,11 @@ import os
 
 from pathlib import Path
 
+import django_heroku
 from environs import Env
 
+
+django_heroku.settings(locals())
 
 env = Env()
 env.read_env()
