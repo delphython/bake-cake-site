@@ -136,6 +136,10 @@ Vue.createApp({
               'Accept': 'application/json',
               'Content-Type': 'application/json',
               'X-CSRFToken': csrfToken,
+              'Access-Control-Allow-Origin': '*',
+              'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
+              'Access-Control-Allow-Headers': 'Origin, Content-Type, X-Auth-Token',
+              'Access-Control-Allow-Credentials': 'true',
             }
 
             let data = JSON.stringify({
@@ -155,7 +159,7 @@ Vue.createApp({
                 Time: this.Time,
                 DelivComments: this.DelivComments,
             }, null ,2)
-            console.log(data)
+            console.log(headers)
 
             axios.post(url, data, {headers: headers})
               .then((response) => {console.log(response);})
