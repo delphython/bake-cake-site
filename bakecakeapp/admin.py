@@ -1,12 +1,6 @@
 from django.contrib import admin
 
 from bakecakeapp.models import Level, Form, Berry, Decor, Topping
-from manager.models import Order
-
-
-@admin.register(Order)
-class OrderAdmin(admin.ModelAdmin):
-    pass
 
 
 @admin.register(Level)
