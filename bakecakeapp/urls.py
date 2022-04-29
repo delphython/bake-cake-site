@@ -5,6 +5,8 @@ from django.conf import settings
 from . import views
 
 
-urlpatterns = [path("", views.index, name='index'), path("lk/", views.lk)] + static(
-    settings.STATIC_URL, document_root=settings.STATIC_ROOT
-)
+urlpatterns = [
+    path("", views.index, name='index'),
+    path("lk/", views.lk),
+    path("order/", views.register_order),
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
