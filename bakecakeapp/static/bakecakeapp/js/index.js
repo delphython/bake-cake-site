@@ -152,7 +152,7 @@ Vue.createApp({
                 Berries: this.DATA.Berries[this.Berries],
                 Decor: this.DATA.Decors[this.Decor],
                 Words: this.Words,
-                Promocode: this.Promocode,
+                Promocode: this.Promocode.toUpperCase(),
                 Comments: this.Comments,
                 Name: this.Name,
                 Phone: this.Phone,
@@ -172,7 +172,7 @@ Vue.createApp({
     computed: {
         Cost() {
             let W = this.Words ? this.Costs.Words : 0
-            if (this.Promocode == 'ТОРТ300') {
+            if (this.Promocode.toUpperCase() == 'ТОРТ300') {
    		P = -300;
 	    } else {
    		P = 0;
