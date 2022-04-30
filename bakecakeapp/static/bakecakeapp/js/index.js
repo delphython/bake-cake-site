@@ -92,7 +92,8 @@ Vue.createApp({
                 Forms: ['не выбрано', 'Круг', 'Квадрат', 'Прямоугольник'],
                 Toppings: ['не выбрано', 'Без', 'Белый соус', 'Карамельный', 'Кленовый', 'Черничный', 'Молочный шоколад', 'Клубничный'],
                 Berries: ['нет', 'Ежевика', 'Малина', 'Голубика', 'Клубника'],
-                Decors: [ 'нет', 'Фисташки', 'Безе', 'Фундук', 'Пекан', 'Маршмеллоу', 'Марципан']
+                Decors: [ 'нет', 'Фисташки', 'Безе', 'Фундук', 'Пекан', 'Маршмеллоу', 'Марципан'],
+                Promocode: ['', 'ТОРТ300']
             },
             Costs: {
                 Levels: [0, 400, 750, 1100],
@@ -100,7 +101,7 @@ Vue.createApp({
                 Toppings: [0, 0, 200, 180, 200, 300, 350, 200],
                 Berries: [0, 400, 300, 450, 500],
                 Decors: [0, 300, 400, 350, 300, 200, 280],
-                Words: 500
+                Words: [0, 500]
             },
             Levels: 0,
             Form: 0,
@@ -108,6 +109,7 @@ Vue.createApp({
             Berries: 0,
             Decor: 0,
             Words: '',
+            Promocode: '',
             Comments: '',
             Designed: false,
 
@@ -150,6 +152,7 @@ Vue.createApp({
                 Berries: this.DATA.Berries[this.Berries],
                 Decor: this.DATA.Decors[this.Decor],
                 Words: this.Words,
+                Promocode: this.Promocode,
                 Comments: this.Comments,
                 Name: this.Name,
                 Phone: this.Phone,
@@ -169,9 +172,15 @@ Vue.createApp({
     computed: {
         Cost() {
             let W = this.Words ? this.Costs.Words : 0
+            if (this.Promocode == 'ТОРТ300') {
+   		P = -300;
+	    } else {
+   		P = 0;
+	    }
+  
             return this.Costs.Levels[this.Levels] + this.Costs.Forms[this.Form] +
                 this.Costs.Toppings[this.Topping] + this.Costs.Berries[this.Berries] +
-                this.Costs.Decors[this.Decor] + W
+                this.Costs.Decors[this.Decor] + W + P
         }
     }
 }).mount('#VueApp')

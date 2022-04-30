@@ -6,7 +6,7 @@ from django.views.decorators.csrf import csrf_protect
 from rest_framework.decorators import api_view
 from rest_framework.serializers import ModelSerializer
 
-from manager.models import Order
+from manager.models import Order, Promocode
 from .models import Level, Form, Topping, Berry, Decor
 
 
@@ -66,6 +66,10 @@ def register_order(request):
         delivery_time=selected_cake["Time"],
         cost=selected_cake["Cost"],
     )
+    if Promocode.objects.filter(code=selected_cake['Promocode']).first():
+        promocode = Promocode.objects.get(code=selected_cake['Promocode'])
+        order.promocode = promocode
+        order.save()
 
     # return redirect("payment", order_id=order.id)
     return HttpResponseRedirect(f"/payment/{order.id}")

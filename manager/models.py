@@ -4,6 +4,18 @@ from django.contrib.auth.models import User
 from bakecakeapp.models import Level, Form, Berry, Decor, Topping
 
 
+class Promocode(models.Model):
+    code = models.CharField('Код', max_length=10)
+    discount = models.IntegerField('Размер скидки, руб')
+
+    def __str__(self):
+        return self.code
+
+    class Meta:
+        verbose_name = "Промокод"
+        verbose_name_plural = "Промокоды"
+
+
 class Order(models.Model):
     customer = models.ForeignKey(
         User,
@@ -55,6 +67,13 @@ class Order(models.Model):
     )
     delivery_time = models.TimeField(
         verbose_name="Время доставки",
+    )
+    promocode = models.ForeignKey(
+        Promocode,
+        verbose_name='Промокод',
+        on_delete=models.SET_NULL,
+        blank=True,
+        null=True,
     )
     cost = models.IntegerField('Стоимость')
     status = models.CharField(

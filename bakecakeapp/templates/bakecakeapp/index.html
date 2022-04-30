@@ -184,6 +184,7 @@
 					<error-message name="lvls" class="from__alert"></error-message>
 					<error-message name="form" class="from__alert"></error-message>
 					<error-message name="topping" class="from__alert"></error-message>
+					<error-message name="promocode" class="from__alert"></error-message>
 				</span>
             {% verbatim %}
 						<span class="z-index-1 fs_40 cake_pink text-end mt-5" id="cost">{{ Cost }}₽</span>
@@ -258,6 +259,14 @@
 						</div>
 						<div class="col-7 col-md-8 col-lg-9 pt-2">
 							<input v-model="Words" :class="Words ? 'cake__border_blue': ''" type="text" name="words" id="words" placeholder="Например: «С днем рождения!»..." class="form-control cake__textinput">
+						</div>
+					</div>
+					<div class="row mb-3">
+						<div class="col-5 col-md-4 col-lg-3">
+							<label class="me-3 fs_40 cake_blue" for="words">Промокод</label>
+						</div>
+						<div class="col-7 col-md-8 col-lg-9 pt-2">
+							<input v-model="Promocode" :class="Promocode ? 'cake__border_blue': ''" type="text" name="promocode" id="promocode" placeholder="Например: «ТОРТ300»..." class="form-control cake__textinput">
 						</div>
 					</div>
 					<div>
