@@ -13,7 +13,7 @@ from manager.models import Order
 from .models import Payment
 
 
-#@login_required
+# @login_required
 def payment(request, order_id):
     order = get_object_or_404(Order, id=order_id)
     if order.payments.filter(is_paid=True).exists():
@@ -21,28 +21,30 @@ def payment(request, order_id):
 
     return_url = urljoin(
         request.build_absolute_uri(),
-        reverse(complete_payment, kwargs={"order_id": order_id})
+        reverse(complete_payment, kwargs={"order_id": order_id}),
     )
 
     try:
         Configuration.account_id = settings.SHOP_ID
         Configuration.secret_key = settings.SHOP_TOKEN
 
-        payment = youkassa_payment.create({
-            "amount": {
-                "value": order.cost,
-                "currency": "RUB"
+        payment = youkassa_payment.create(
+            {
+                "amount": {"value": order.cost, "currency": "RUB"},
+                "confirmation": {
+                    "type": "redirect",
+                    "return_url": return_url,
+                },
+                "capture": True,
+                "description": f"Заказ №{order_id}",
+                "metadata": {"order_id": order_id},
             },
-            "confirmation": {
-                "type": "redirect",
-                "return_url": return_url,
-            },
-            "capture": True,
-            "description": f"Заказ №{order_id}",
-            "metadata": {"order_id": order_id},
-        }, uuid.uuid4())
+            uuid.uuid4(),
+        )
     except UnauthorizedError as error:
-        return HttpResponse(f"Ошибка авторизации в форме оплаты, обратитесь в тех. поодержку сайта: {error}")
+        return HttpResponse(
+            f"Ошибка авторизации в форме оплаты, обратитесь в тех. поодержку сайта: {error}"
+        )
 
     Payment.objects.create(
         payment_id=payment.id,
@@ -58,9 +60,11 @@ def payment(request, order_id):
     return redirect(payment.confirmation.confirmation_url)
 
 
-#@login_required
+# @login_required
 def complete_payment(request, order_id):
-    order_payment = Order.objects.get(id=order_id).payments.order_by("-created_at").first()
+    order_payment = (
+        Order.objects.get(id=order_id).payments.order_by("-created_at").first()
+    )
 
     Configuration.account_id = settings.SHOP_ID
     Configuration.secret_key = settings.SHOP_TOKEN
@@ -69,4 +73,4 @@ def complete_payment(request, order_id):
     order_payment.status = payment.status
     order_payment.is_paid = payment.paid
     order_payment.save()
-    return redirect(reverse('index'))
+    return redirect(reverse("index"))
