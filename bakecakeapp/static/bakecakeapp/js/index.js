@@ -138,10 +138,6 @@ Vue.createApp({
               'Accept': 'application/json',
               'Content-Type': 'application/json',
               'X-CSRFToken': csrfToken,
-              'Access-Control-Allow-Origin': '*',
-              'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
-              'Access-Control-Allow-Headers': 'Origin, Content-Type, X-Auth-Token',
-              'Access-Control-Allow-Credentials': 'true',
             }
 
             let data = JSON.stringify({
@@ -162,10 +158,11 @@ Vue.createApp({
                 Time: this.Time,
                 DelivComments: this.DelivComments,
             }, null ,2)
-            console.log(headers)
+
+            let order_id = 0
 
             axios.post(url, data, {headers: headers})
-              .then((response) => {console.log(response);})
+              .then((response) => {window.location.assign('/payment/' + response.data["order_id"]);})
               .catch((error) => {console.log(error);});
         }
     },
@@ -177,7 +174,7 @@ Vue.createApp({
 	    } else {
    		P = 0;
 	    }
-  
+
             return this.Costs.Levels[this.Levels] + this.Costs.Forms[this.Form] +
                 this.Costs.Toppings[this.Topping] + this.Costs.Berries[this.Berries] +
                 this.Costs.Decors[this.Decor] + W + P
