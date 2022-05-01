@@ -15,6 +15,7 @@ from pathlib import Path
 
 from environs import Env
 
+
 env = Env()
 env.read_env()
 
@@ -33,14 +34,6 @@ SECRET_KEY = env("SECRET_KEY", "etirgvonenrfnoerngorenogneongg334g")
 DEBUG = env.bool("DEBUG", True)
 
 ALLOWED_HOSTS = env("ALLOWED_HOSTS", "127.0.0.1 localhost").split()
-# SECRET_KEY = (
-#     "django-insecure-5=vd#e_6#bao&qnp#%q^-do$qwd$=7n!ms81dt_2gdwx0+5v@6"
-# )
-#
-# # SECURITY WARNING: don't run with debug turned on in production!
-# DEBUG = True
-#
-# ALLOWED_HOSTS = ["127.0.0.1", "localhost"]
 
 
 # Application definition
@@ -52,7 +45,6 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "corsheaders",
     "bakecakeapp.apps.BakecakeappConfig",
     "manager.apps.ManagerConfig",
     "payment.apps.PaymentConfig",
@@ -61,7 +53,6 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
-    "corsheaders.middleware.CorsMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
@@ -148,5 +139,3 @@ MEDIA_URL = "media/"
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
-
-CORS_ALLOW_ALL_ORIGINS = True
