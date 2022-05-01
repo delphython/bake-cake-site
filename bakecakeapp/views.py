@@ -1,10 +1,9 @@
 from django.contrib.auth.models import User
-from django.http import HttpResponseRedirect
-from django.shortcuts import render, redirect
-from django.urls import reverse
+from django.shortcuts import render
 from django.views.decorators.csrf import csrf_protect
 from rest_framework.decorators import api_view
 from rest_framework.serializers import ModelSerializer
+from rest_framework.response import Response
 
 from manager.models import Order, Promocode
 from .models import Level, Form, Topping, Berry, Decor
@@ -32,7 +31,7 @@ class OrderSerializer(ModelSerializer):
 
 
 @csrf_protect
-@api_view(["POST", "GET"])
+@api_view(["POST"])
 def register_order(request):
     selected_cake = request.data
     # serializer = OrderSerializer(data=selected_cake)
@@ -66,10 +65,9 @@ def register_order(request):
         delivery_time=selected_cake["Time"],
         cost=selected_cake["Cost"],
     )
-    if Promocode.objects.filter(code=selected_cake['Promocode']).first():
-        promocode = Promocode.objects.get(code=selected_cake['Promocode'])
+    if Promocode.objects.filter(code=selected_cake["Promocode"]).first():
+        promocode = Promocode.objects.get(code=selected_cake["Promocode"])
         order.promocode = promocode
         order.save()
 
-    # return redirect("payment", order_id=order.id)
-    return HttpResponseRedirect(f"/payment/{order.id}")
+    return Response({"order_id": order.id}, status=201)
