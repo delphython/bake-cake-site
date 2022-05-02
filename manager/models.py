@@ -22,6 +22,8 @@ class Order(models.Model):
         related_name="customers",
         verbose_name="Заказчик",
         on_delete=models.PROTECT,
+        null=True,
+        blank=True,
     )
     level = models.ForeignKey(
         Level,
