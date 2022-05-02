@@ -18,9 +18,15 @@
 			<form method="POST">{% csrf_token %}
     		  {{ form.as_table }}
   			  <div class="d-flex justify-content-center my-5">
-    		    <button type="submit" class="btn text-white rounded-pill align-self-end px-5 mt-3 shadow-none cake__button cake__bg_pink">Продолжить</button>
+    		    <button type="submit" class="btn text-white rounded-pill align-self-end px-5 mt-3 shadow-none cake__button cake__bg_pink">Войти</button>
 			  </div>
-			</form>
+			  </form>
+
+			<div class="d-flex justify-content-center my-5">
+				<form action="/accounts/registration">
+    		      <button class="btn text-white rounded-pill align-self-end px-5 mt-3 shadow-none cake__button cake__bg_blue">Регистрация</button>
+				</form>
+			</div>
 
 			<span class="cake_grey">Есть вопросы?</span>
 			<span class="cake_grey">Воспользуйтесь нашим <a href="https://vk.com/devmanorg" class="text-decoration-none cake_pink">чат-ботом</a>.</span>
