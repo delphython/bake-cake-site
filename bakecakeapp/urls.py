@@ -11,5 +11,6 @@ urlpatterns = [
     path("lk/", views.lk),
     path("lk_order/", view_orders),
     path("order/", views.register_order),
+    path("save_user/", views.register_order),
     path("payment/", include("payment.urls")),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
