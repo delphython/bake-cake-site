@@ -93,7 +93,7 @@ Vue.createApp({
                 Toppings: ['не выбрано', 'Без', 'Белый соус', 'Карамельный', 'Кленовый', 'Черничный', 'Молочный шоколад', 'Клубничный'],
                 Berries: ['нет', 'Ежевика', 'Малина', 'Голубика', 'Клубника'],
                 Decors: [ 'нет', 'Фисташки', 'Безе', 'Фундук', 'Пекан', 'Маршмеллоу', 'Марципан'],
-                Promocode: ['', 'ТОРТ300']
+                Promocode: ['нет', 'ТОРТ300']
             },
             Costs: {
                 Levels: [0, 400, 750, 1100],
@@ -166,12 +166,17 @@ Vue.createApp({
     },
     computed: {
         Cost() {
-            let W = this.Words ? this.Costs.Words : 0
+            // let W = this.Words ? this.Costs.Words : 0
+            if (this.Words != '') {
+   		        W = this.Costs.Words[1];
+	            } else {
+   		        W = 0;
+	        }
             if (this.Promocode.toUpperCase() == 'ТОРТ300') {
-   		P = -300;
-	    } else {
-   		P = 0;
-	    }
+   		        P = -300;
+	            } else {
+   		        P = 0;
+	        }
 
             return this.Costs.Levels[this.Levels] + this.Costs.Forms[this.Form] +
                 this.Costs.Toppings[this.Topping] + this.Costs.Berries[this.Berries] +
