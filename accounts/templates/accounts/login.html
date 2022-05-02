@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<div class="container mt-header mb-5">
+	<div class="row mt-5">
+		<div class="col-12 col-xxl-6 d-flex justify-content-center">
+			<div><img src="{% static 'bakecakeapp/img/Cake2.png' %}" alt=""></div>
+		</div>
+		<div class="col-12 col-xxl-6 d-flex flex-column justify-content-center align-items-center align-items-xxl-start" id="LK">
+			<v-form :validation-schema="Schema" @submit="ApplyChanges">
+				<div class="d-flex w-100 justify-content-center justify-content-xxl-between align-items-center">
+					<h1 class="font_Gogh fs_40 cake_blue">Авторизация</h1>
+
+				</div>
+			</v-form>
+
+			<form method="POST">{% csrf_token %}
+    		  {{ form.as_table }}
+  			  <div class="d-flex justify-content-center my-5">
+    		    <button type="submit" class="btn text-white rounded-pill align-self-end px-5 mt-3 shadow-none cake__button cake__bg_pink">Продолжить</button>
+			  </div>
+			</form>
+
+			<span class="cake_grey">Есть вопросы?</span>
+			<span class="cake_grey">Воспользуйтесь нашим <a href="https://vk.com/devmanorg" class="text-decoration-none cake_pink">чат-ботом</a>.</span>
+
+		</div>
+	</div>
+</div>
+
+{% endblock %}

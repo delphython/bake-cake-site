@@ -21,4 +21,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('bakecakeapp.urls')),
     path('payment/', include('payment.urls')),
+    path('accounts/', include('accounts.urls')),
 ]
