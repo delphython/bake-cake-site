@@ -41,7 +41,18 @@ def register_order(request):
     cake_berry = Berry.objects.filter(name=selected_cake["Berries"])
     cake_decor = Decor.objects.filter(name=selected_cake["Decor"])
 
+    customer = (
+        (
+            User.objects.create_user(
+                selected_cake["Name"], selected_cake["Email"], "11111111"
+            )
+        )
+        if request.user.is_anonymous
+        else request.user
+    )
+
     order = Order.objects.create(
+        customer=customer,
         level=cake_level[0],
         form=cake_form[0],
         topping=cake_topping[0],
@@ -58,9 +69,7 @@ def register_order(request):
         promocode = Promocode.objects.get(code=selected_cake["Promocode"])
         order.promocode = promocode
         order.save()
-    if not request.user.is_anonymous:
-        order.customer = request.user
-        order.save()
+
     return Response({"order_id": order.id}, status=201)
 
 
