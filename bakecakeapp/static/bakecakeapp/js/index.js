@@ -159,8 +159,6 @@ Vue.createApp({
                 DelivComments: this.DelivComments,
             }, null ,2)
 
-            let order_id = 0
-
             axios.post(url, data, {headers: headers})
               .then((response) => {window.location.assign('/payment/' + response.data["order_id"]);})
               .catch((error) => {console.log(error);});
