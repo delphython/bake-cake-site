@@ -52,25 +52,25 @@ Vue.createApp({
             this.Edit = false
             console.log(this.Name, this.Phone, this.Email)
 
-            const url = "/save_user/"
-
-            let csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value;
-
-            const headers = {
-              'Accept': 'application/json',
-              'Content-Type': 'application/json',
-              // 'X-CSRFToken': csrfToken,
-            }
-
-            let data = JSON.stringify({
-                name: this.Name,
-                phone: this.Phone,
-                email: this.Email,
-            }, null ,2)
-
-            axios.post(url, data, {headers: headers})
-              .then((response) => {console.log(response.data);})
-              .catch((error) => {console.log(error);});
+            // const url = "/save_user/"
+            //
+            // let csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value;
+            //
+            // const headers = {
+            //   'Accept': 'application/json',
+            //   'Content-Type': 'application/json',
+            //   // 'X-CSRFToken': csrfToken,
+            // }
+            //
+            // let data = JSON.stringify({
+            //     name: this.Name,
+            //     phone: this.Phone,
+            //     email: this.Email,
+            // }, null ,2)
+            //
+            // axios.post(url, data, {headers: headers})
+            //   .then((response) => {console.log(response.data);})
+            //   .catch((error) => {console.log(error);});
         }
     }
 }).mount('#LK')
