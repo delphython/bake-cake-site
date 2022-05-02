@@ -34,8 +34,6 @@ class OrderSerializer(ModelSerializer):
 @api_view(["POST"])
 def register_order(request):
     selected_cake = request.data
-    # serializer = OrderSerializer(data=selected_cake)
-    # serializer.is_valid(raise_exception=False)
 
     cake_level = Level.objects.filter(amount=selected_cake["Levels"])
     cake_form = Form.objects.filter(name=selected_cake["Form"])
@@ -64,3 +62,17 @@ def register_order(request):
         order.customer = request.user
         order.save()
     return Response({"order_id": order.id}, status=201)
+
+
+@csrf_protect
+@api_view(["POST"])
+def save_user(request):
+    user_credentials = request.data
+
+    User.objects.filter(customer__id=request.user.id).update(
+        email=user_credentials["email"],
+        name=user_credentials["name"],
+        # phone=user_credentials["phone"],
+    )
+
+    return Response({"userid": request.user.id}, status=201)
