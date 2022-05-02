@@ -59,7 +59,7 @@ Vue.createApp({
             const headers = {
               'Accept': 'application/json',
               'Content-Type': 'application/json',
-              'X-CSRFToken': csrfToken,
+              // 'X-CSRFToken': csrfToken,
             }
 
             let data = JSON.stringify({
