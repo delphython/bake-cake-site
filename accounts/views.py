@@ -11,13 +11,15 @@ from .forms import LoginForm, RegistrationForm
 
 @login_required
 def show_lk(request):
-    orders = Order.objects.select_related().filter(
-        customer__id=request.user.id
+    orders = (
+        Order.objects.prefetch_related()
+        .select_related()
+        .filter(customer__id=request.user.id)
     )
     return render(
         request,
         "accounts/lk.html",
-        context={'user': request.user, "orders": orders}
+        context={"user": request.user, "orders": orders},
     )
 
 

@@ -98,6 +98,15 @@
 								<span class="cake_pink">Цена: {{order.cost}}₽</span>
 							</div>
 							<div class="modal-footer d-flex justify-content-between">
+								<span class="cake_blue d-flex">Оплата:
+									{% for payment in order.payments.all %}
+                                        {% if payment.is_paid %}
+										    оплачено
+										{% else %}
+				                        	не оплачено
+				                      	{% endif %}
+									{% endfor %}
+								</span>
 								<span class="cake_blue d-flex">Статус: {{order.get_status_display}}</span>
 								<span class="cake_blue d-flex align-items-center">Адрес: {{order.address}}</span>
 								<span class="cake_blue d-flex align-items-center">Время доставки: {{order.delivery_time}}</span>
